@@ -4,7 +4,8 @@ import { collection, getDocs, addDoc, doc, updateDoc } from 'firebase/firestore'
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap styles
 import { FaTrashAlt, FaEdit } from 'react-icons/fa'; // Importamos los iconos de FontAwesome
-import Statistics from './Statistics';
+//import Statistics from './Statistics';
+
 
 const App = () => {
     const [tasks, setTasks] = useState([]);
@@ -89,6 +90,15 @@ const App = () => {
   };
   
 
+  const showAlertWithId = (id) => {
+    Swal.fire({
+      title: 'ID de la tarea',
+      text: `El ID es: ${id}`,
+      icon: 'info',
+      confirmButtonText: 'Cerrar',
+    });
+  };
+
 
     // Función para editar una tarea usando SweetAlert
     const editTask = (task) => {
@@ -144,6 +154,9 @@ const App = () => {
     }, []);
 
     return (
+
+
+      
         <div className="container mt-5">
             <h1 className="text-center">Check List Tareas</h1>
 
@@ -208,7 +221,15 @@ const App = () => {
         }
         return (
             <tr key={task.id} className={rowClass}>
-                <td>{task.id}</td>
+                 <td>
+      <button 
+        className="btn btn-outline-secondary btn-sm" 
+        onClick={() => showAlertWithId(task.id)}
+        title="Ver ID"
+      >
+        👁️
+      </button>
+    </td>
                 <td>{task.description}</td>
                 <td>{task.status}</td>
                 <td>{task.date}</td>
@@ -236,7 +257,7 @@ const App = () => {
 </tbody>
 
             </table>
-            <Statistics tasks={tasks} />
+           
         </div>
     );
 };
